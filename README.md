@@ -1,4 +1,4 @@
-hadoop-cloud-scripts
+Hadoop in the Cloud scripts
 ====================
 
-Helper scripts to provision Hadoop in the cloud
+Helper scripts to provision Hadoop in the cloud. 
