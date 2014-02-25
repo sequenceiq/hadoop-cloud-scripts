@@ -34,8 +34,6 @@ export NUM_OF_AGENTS=6
 ./silent-install.sh
 ```
 
-region specific EC2 ami's are listed below.
-
 # Option-2: Deploy from EC2
 
 The silent install script is written is *bash*, so its not trivial to run it on `windows`. Its possile from [git bash](http://msysgit.github.io/), but there is an easier way:
