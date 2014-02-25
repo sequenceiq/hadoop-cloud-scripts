@@ -8,7 +8,8 @@ fi
 OWNER=${OWNER:=${USER:-$USERNAME}}
 
 # base centos 6.4 for sdp
-echo AMI=${AMI:=ami-75342c01}
+AMI=$(aws ec2 describe-images --filter Name=name,Values=RHEL-6.4_GA-x86_64-10-Hourly2 --query Images[].ImageId --out text)
+echo AMI=$AMI
 echo INS_TYPE=${INS_TYPE:=m1.large}
 echo NUM_OF_AGENTS=${NUM_OF_AGENTS:=2}
 
