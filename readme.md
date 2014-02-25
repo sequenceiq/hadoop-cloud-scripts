@@ -1,12 +1,45 @@
 # Deploying a Hadoop Cluster on Amazon EC2 with HDP2
 
-The [original] (http://hortonworks.com/blog/deploying-hadoop-cluster-amazon-ec2-hortonworks) documentation contains screenshots to describe cli action. Here are the scripts, so you can copy and paste them.
+The [original](http://hortonworks.com/blog/deploying-hadoop-cluster-amazon-ec2-hortonworks) documentation contains screenshots to describe cli action. These scripts help you to do it automated. Its in progress, so feel free to create an issue if you run into some trouble.
 
-The *one-line* installer script is in progress. You will see the resulting script just in this gist.
+You have 2 choises to run it:
 
-## Windows
+- **Option-1**: run it locally on you dev box: it needs aws cli installed
+- **Option-2**: run it from the cloud: all you need is a browser, no python/pip/aws-cli installation needed.
 
-The silent install script is written is *bash*, so its not trivial to run it on windows. Its possile from [git bash](http://msysgit.github.io/), but there is an easier way:
+# Option-1: Run it locally
+
+If you have [aws cli](http://aws.amazon.com/cli/) installed and configured, you can run the silen installer script rigth away:
+
+```
+./silent-install.sh
+```
+
+this will start by default:
+
+- 1 ambari server and 2 agents
+- OS: centos 6.4 
+- Instance type: m1.large
+- region: eu-west-1
+
+
+### Configuring the silent install script
+
+If you are not satisfied with with the default values above, you can set the followinf environment variables:
+
+```
+export AMI=ami-xxx
+export INS_TYPE=m1.micro
+export NUM_OF_AGENTS=6
+
+./silent-install.sh
+```
+
+region specific amis are listed below.
+
+# Option-2: Deploy from ec2
+
+The silent install script is written is *bash*, so its not trivial to run it on `windows`. Its possile from [git bash](http://msysgit.github.io/), but there is an easier way:
 
 * start a micro instance on ec2
 * pass an installer script as user-data. all ubuntu images are prepared with [cloud init](https://help.ubuntu.com/community/CloudInit) which interprets the user-data as script if it's first line starts with: `#!/`
@@ -14,8 +47,8 @@ The silent install script is written is *bash*, so its not trivial to run it on 
 ### step 1: start ubuntu
 Choose your region:
 
-|region|ami|launch|
-|-|-|-|
+| region | ami | launch |
+|--|--|--|
 |eu-west-1|ami-aa56a1dd|[start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-aa56a1dd)|
 |us-east-1|ami-83dee0ea|[start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-83dee0ea)|
 |us-west-1|ami-c45f6281|[start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-c45f6281)|
