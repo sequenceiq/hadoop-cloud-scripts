@@ -54,7 +54,7 @@ Choose your region:
 | us-west-1 | ami-c45f6281 | [start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-c45f6281) |
 | us-west-2 | ami-d0d8b8e0 | [start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-d0d8b8e0) |
 
-| Tables        | Are           | Cool  |
+| region | ami | launch |
 | ------------- |:-------------:| -----:|
 | col 3 is      | right-aligned | $1600 |
 | col 2 is      | centered      |   $12 |
