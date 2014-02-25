@@ -52,7 +52,10 @@ Choose your region:
 | us-east-1 | ami-83dee0ea | [start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-83dee0ea) |
 | us-west-1 | ami-c45f6281 | [start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-c45f6281) |
 | us-west-2 | ami-d0d8b8e0 | [start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-d0d8b8e0) |
-
+| sa-east-1 | ami-d55bfbc8 | [start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-d55bfbc8) |
+| ap-northeast-1 | ami-f72e45f6 | [start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-f72e45f6) |
+| ap-southeast-1 | ami-bc7325ee | [start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-bc7325ee) |
+| ap-southeast-2 | ami-e577e9df | [start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-e577e9df) |
 
 for other egions check the [Amazon EC2 AMI Locator](http://cloud-images.ubuntu.com/locator/ec2/)
 
