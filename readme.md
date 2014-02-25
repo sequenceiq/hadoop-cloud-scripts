@@ -48,17 +48,11 @@ The silent install script is written is *bash*, so its not trivial to run it on 
 Choose your region:
 
 | region | ami | launch |
-| -- | -- | -- |
+| --- | --- | --- |
 | eu-west-1 | ami-aa56a1dd | [start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-aa56a1dd) |
 | us-east-1 | ami-83dee0ea | [start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-83dee0ea) |
 | us-west-1 | ami-c45f6281 | [start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-c45f6281) |
 | us-west-2 | ami-d0d8b8e0 | [start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-d0d8b8e0) |
-
-| region | ami | launch |
-| -- | -- | -- |
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
 
 
 for other egions check the [Amazon EC2 AMI Locator](http://cloud-images.ubuntu.com/locator/ec2/)
