@@ -20,8 +20,7 @@ this will start by default:
 - 1 ambari server and 2 agents
 - OS: centos 6.4 
 - Instance type: m1.large
-- region: eu-west-1
-
+- create a new key-pair, and use it for all instances
 
 ### Configuring the silent install script
 
