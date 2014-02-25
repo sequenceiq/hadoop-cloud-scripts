@@ -54,6 +54,13 @@ Choose your region:
 | us-west-1 | ami-c45f6281 | [start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-c45f6281) |
 | us-west-2 | ami-d0d8b8e0 | [start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-d0d8b8e0) |
 
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+
+
 for other egions check the [Amazon EC2 AMI Locator](http://cloud-images.ubuntu.com/locator/ec2/)
 
 ### step 2: select instance type
