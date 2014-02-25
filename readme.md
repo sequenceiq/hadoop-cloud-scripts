@@ -27,7 +27,6 @@ this will start by default:
 If you are not satisfied with with the default values above, you can set the following environment variables:
 
 ```
-export AMI=ami-xxx
 export INS_TYPE=m1.micro
 export NUM_OF_AGENTS=6
 
