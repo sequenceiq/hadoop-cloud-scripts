@@ -2,7 +2,7 @@
 
 The [original] (http://hortonworks.com/blog/deploying-hadoop-cluster-amazon-ec2-hortonworks) documentation contains screenshots to describe AWS cli actions. These scripts help you to do it automated. It is continousely under development and improvements, so feel free to create an issue if you run into some trouble.
 
-You have 2 choises to run it:
+You have 2 choices to run it:
 
 - **Option-1**: run it locally on your dev box: it needs aws cli installed
 - **Option-2**: run it from the cloud: all you need is a browser, no python/pip/aws-cli installation needed.
