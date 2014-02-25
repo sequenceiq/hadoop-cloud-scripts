@@ -1,15 +1,15 @@
 # Deploying a Hadoop Cluster on Amazon EC2 with HDP2
 
-The [original](http://hortonworks.com/blog/deploying-hadoop-cluster-amazon-ec2-hortonworks) documentation contains screenshots to describe cli action. These scripts help you to do it automated. Its in progress, so feel free to create an issue if you run into some trouble.
+The [original] (http://hortonworks.com/blog/deploying-hadoop-cluster-amazon-ec2-hortonworks) documentation contains screenshots to describe AWS cli actions. These scripts help you to do it automated. It is continousely under development and improvements, so feel free to create an issue if you run into some trouble.
 
 You have 2 choises to run it:
 
-- **Option-1**: run it locally on you dev box: it needs aws cli installed
+- **Option-1**: run it locally on your dev box: it needs aws cli installed
 - **Option-2**: run it from the cloud: all you need is a browser, no python/pip/aws-cli installation needed.
 
 # Option-1: Run it locally
 
-If you have [aws cli](http://aws.amazon.com/cli/) installed and configured, you can run the silen installer script rigth away:
+If you have [aws cli] (http://aws.amazon.com/cli/) installed and configured, you can run the silent installer script rigth away:
 
 ```
 ./silent-install.sh
@@ -25,7 +25,7 @@ this will start by default:
 
 ### Configuring the silent install script
 
-If you are not satisfied with with the default values above, you can set the followinf environment variables:
+If you are not satisfied with with the default values above, you can set the following environment variables:
 
 ```
 export AMI=ami-xxx
@@ -35,14 +35,14 @@ export NUM_OF_AGENTS=6
 ./silent-install.sh
 ```
 
-region specific amis are listed below.
+region specific EC2 ami's are listed below.
 
-# Option-2: Deploy from ec2
+# Option-2: Deploy from EC2
 
 The silent install script is written is *bash*, so its not trivial to run it on `windows`. Its possile from [git bash](http://msysgit.github.io/), but there is an easier way:
 
 * start a micro instance on ec2
-* pass an installer script as user-data. all ubuntu images are prepared with [cloud init](https://help.ubuntu.com/community/CloudInit) which interprets the user-data as script if it's first line starts with: `#!/`
+* pass an installer script as user-data. all ubuntu images are prepared with [cloud init] (https://help.ubuntu.com/community/CloudInit) which interprets the user-data as script if the first line starts with: `#!/`
 
 ### step 1: start ubuntu
 Choose your region:
@@ -81,7 +81,7 @@ chmod +x /tmp/silent-install.sh
 /tmp/silent-install.sh delme-owner &> /tmp/silent-install-ambari.log
 ```
 
-Replace `<YOUR_KEY>` and `<YOUR_SECRET>` with real values. You can check the script it doesnt store it. But if you want you can create temporal access keys on IAM.
+Replace `<YOUR_KEY>` and `<YOUR_SECRET>` with your real key values. You can check that the script doesnt' store it. Should you want you can create temporal access keys on IAM.
 
 ### step 3: Start the instance
 
@@ -94,3 +94,7 @@ Once the instance is running, ssh into it and `tail` the log file.
 ```
 ssh -i your-key.pem ubuntu@<PUBLIC_IP> tail -f /tmp/silent-install-ambari.log
 ```
+
+Hope this helps, and saved you lots of time.
+Enjoy,
+SequenceIQ
