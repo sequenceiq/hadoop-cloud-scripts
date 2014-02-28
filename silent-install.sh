@@ -1,4 +1,6 @@
 #!/bin/bash
+# exit on error
+set -e
 
 if [ ${DEBUG:-0} -eq 1 ]; then 
 	set -x
@@ -122,8 +124,12 @@ aws ec2 create-tags --resources $AMBARI_ID  --tags Key=Name,Value=ambari --out t
 
 AMBARI_IP=$(aws ec2 describe-instances --instance-ids $AMBARI_ID --query Reservations[].Instances[].PublicIpAddress --out text)
 
-SSH_COMMAND="ssh -t -o ConnectTimeout=5 -o LogLevel=quiet -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $KEY ec2-user@$AMBARI_IP"
-SSH_COMMANDTTY="ssh -f -tt -o ConnectTimeout=5 -o LogLevel=quiet -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $KEY ec2-user@$AMBARI_IP"
+SSH_COMMON_OPTIONS="-t -o ConnectTimeout=5 -o LogLevel=quiet -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $KEY"
+SSH_COMMAND="ssh $SSH_COMMON_OPTIONS ec2-user@$AMBARI_IP"
+SSH_COMMAND_TTY="ssh -t $SSH_COMMON_OPTIONS ec2-user@$AMBARI_IP"
+SSH_COMMAND_BACKGR="ssh -f -t $SSH_COMMON_OPTIONS ec2-user@$AMBARI_IP"
+
+
 echo ssh command to connect:
 echo $SSH_COMMAND
 
@@ -134,8 +140,8 @@ done
 
 # workaround-1: tty needed for sudo, see more: http://blog.zenlinux.com/2008/02/centos-5-configuration-tweak-for-sudo/
 # workaround-2: fixing RHEL specific ssh issue, see more: https://forums.aws.amazon.com/thread.jspa?messageID=474971
-$SSH_COMMANDTTY 'sudo sed -i "/requiretty/ s/^/#/" /etc/sudoers'
-$SSH_COMMANDTTY<<"EOF1"
+$SSH_COMMAND_BACKGR 'sudo sed -i "/requiretty/ s/^/#/" /etc/sudoers'
+$SSH_COMMAND<<"EOF1"
 tac /etc/rc.local | sed "1,3 s/^/#/"|tac > /tmp/rc.local
 sudo cp /tmp/rc.local /etc/rc.local
 EOF1
@@ -144,7 +150,7 @@ EOF1
 # copies private key for passwordless ssh
 scp  -i $KEY -o LogLevel=quiet -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null  $KEY ec2-user@$AMBARI_IP:.ssh/id_rsa
 
-$SSH_COMMANDTTY <<"EOF2"
+$SSH_COMMAND <<"EOF2"
 sudo chkconfig ntpd on
 sudo chkconfig iptables off
 sudo /etc/init.d/iptables stop
