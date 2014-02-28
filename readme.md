@@ -27,7 +27,7 @@ this will start by default:
 If you are not satisfied with with the default values above, you can set the following environment variables:
 
 ```
-export INS_TYPE=m1.micro
+export INS_TYPE=t1.micro
 export NUM_OF_AGENTS=6
 
 ./silent-install.sh
@@ -58,7 +58,7 @@ for other egions check the [Amazon EC2 AMI Locator](http://cloud-images.ubuntu.c
 
 ### step 2: select instance type
  
-choose micro instance: `m1.micro`, and clik next
+choose micro instance: `t1.micro`, and clik next
 
 ### step 3: user-data
 
