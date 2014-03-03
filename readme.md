@@ -54,7 +54,7 @@ Choose your region:
 | ap-southeast-1 | ami-bc7325ee | [start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-bc7325ee) |
 | ap-southeast-2 | ami-e577e9df | [start](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-e577e9df) |
 
-for other egions check the [Amazon EC2 AMI Locator](http://cloud-images.ubuntu.com/locator/ec2/)
+for other regions check the [Amazon EC2 AMI Locator](http://cloud-images.ubuntu.com/locator/ec2/)
 
 ### step 2: select instance type
  
