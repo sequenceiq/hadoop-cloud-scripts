@@ -58,7 +58,7 @@ for other regions check the [Amazon EC2 AMI Locator](http://cloud-images.ubuntu.
 
 ### step 2: select instance type
  
-choose micro instance: `t1.micro`, and clik next
+choose micro instance: `t1.micro`, and click next
 
 ### step 3: user-data
 
@@ -80,7 +80,7 @@ chmod +x /tmp/silent-install.sh
 /tmp/silent-install.sh delme-owner &> /tmp/silent-install-ambari.log
 ```
 
-Replace `<YOUR_KEY>` and `<YOUR_SECRET>` with your real key values. You can check that the script doesnt' store it. Should you want you can create temporal access keys on IAM.
+Replace `<YOUR_KEY>` and `<YOUR_SECRET>` with your real key values. You can check that the script doesn't store it. Should you want you can create temporal access keys on [IAM](http://aws.amazon.com/iam/) 
 
 ### step 3: Start the instance
 
@@ -96,4 +96,4 @@ ssh -i your-key.pem ubuntu@<PUBLIC_IP> tail -f /tmp/silent-install-ambari.log
 
 Hope this helps, and saved you lots of time.
 Enjoy,
-SequenceIQ
+[SequenceIQ](http://sequenceiq.com)
