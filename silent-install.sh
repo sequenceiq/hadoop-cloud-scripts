@@ -9,6 +9,9 @@ fi
 # if OWNER not set checks $USER or falls back to $USERNAME (windows?!)
 OWNER=${OWNER:=${USER:-$USERNAME}}
 
+REGION=$(aws ec2 describe-availability-zones --query AvailabilityZones[0].RegionName --out text)
+echo REGION=$REGION
+
 # base centos 6.4 for sdp
 AMI=$(aws ec2 describe-images --filter Name=name,Values=RHEL-6.4_GA-x86_64-10-Hourly2 --query Images[].ImageId --out text)
 echo AMI=$AMI
@@ -17,13 +20,13 @@ echo NUM_OF_AGENTS=${NUM_OF_AGENTS:=2}
 
 TAG_KEY=owner
 CUST_AMI_NAME=horton-cloud-base-$OWNER
-KEY_NAME=hdp-key-$OWNER
+KEY_NAME=hdp-key-$OWNER-$REGION
 KEY=$KEY_NAME.pem
 SEC_NAME=hdp-sec-grp-$OWNER
 CIDR=10.0.0.0/16
 
 LOGFILE=hdp-silent-install.log
-rm $LOGFILE
+rm -f $LOGFILE
 
 create_new_pkey() {
     echo creating a key: $KEY_NAME
