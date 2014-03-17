@@ -251,6 +251,9 @@ TESTHADOOP
 
 : <<COMMENTBLOCK
 
+fing() { KEY=$1; openssl pkcs8 -in $KEY -nocrypt -topk8 -outform DER | openssl sha1 -c|sed "s/^.*= //"; }
+search-key() { KEY=$1; aws ec2 describe-key-pairs --filters Name=fingerprint,Values=$(fing $KEY) --query KeyPairs[].KeyName --out text; }
+
 in /etc/ambari-agent/conf/ambari-agent.ini:
 [server]
 hostname=ip-10-0-140-6.eu-west-1.compute.internal.localdomain.localdomain.localdomain.localdomain
