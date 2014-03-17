@@ -94,6 +94,9 @@ Once the instance is running, ssh into it and `tail` the log file.
 ssh -i your-key.pem ubuntu@<PUBLIC_IP> tail -f /tmp/silent-install-ambari.log
 ```
 
+### gist origin
+Originally it started out as a simple gist [https://gist.github.com/lalyos/bc986eab38ab72874c87](https://gist.github.com/lalyos/bc986eab38ab72874c87) but evolved into this repo.
+
 Hope this helps, and saved you lots of time.
 Enjoy,
 [SequenceIQ](http://sequenceiq.com)
