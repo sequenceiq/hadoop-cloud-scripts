@@ -2,7 +2,7 @@
 # exit on error
 set -e
 
-if [ ${DEBUG:-0} -eq 1 ]; then 
+if [ ${DEBUG:-0} -eq 1 ]; then
 	set -x
 fi
 
@@ -39,7 +39,7 @@ if [[ -f $KEY ]]; then
     FING=$(openssl pkcs8 -in $KEY -nocrypt -topk8 -outform DER | openssl sha1 -c|sed "s/^.*= //")
     echo "  searching in EC2 keypairs the fingerprint: $FING"
     KEY_FOUND=$(aws ec2 describe-key-pairs --filters Name=fingerprint,Values=${FING} --query KeyPairs[].KeyName --out text)
-    if [[ $KEY_FOUND == $KEY_NAME ]]; then 
+    if [[ $KEY_FOUND == $KEY_NAME ]]; then
         echo "  key found on ec2: $KEY_FOUND"
     else
         echo "  [WARNING] local file: $KEY can not be recognised as a valid ec2 key-pair"
@@ -65,7 +65,7 @@ aws ec2 modify-vpc-attribute --vpc-id $VPC_ID --enable-dns-support true --out te
 aws ec2 modify-vpc-attribute --vpc-id $VPC_ID --enable-dns-hostnames true --out text
 
 # waits for running state
-while [[ $VPC_STATE != "available" ]]; do 
+while [[ $VPC_STATE != "available" ]]; do
   echo "wait until VPC gets available ..."
   sleep 10
   VPC_STATE=$(aws ec2 describe-vpcs --vpc-ids $VPC_ID --query Vpcs[].State --out text)
@@ -113,7 +113,7 @@ echo [CREATED] AMBARI_ID: $AMBARI_ID
 AMBARI_STATE=$(aws ec2 describe-instances --instance-ids $AMBARI_ID --query Reservations[].Instances[].State.Name --out text)
 
 # waits for running state
-while [[ $AMBARI_STATE != "running" ]]; do 
+while [[ $AMBARI_STATE != "running" ]]; do
   echo "wait for instance running ..."
   sleep 10
   AMBARI_STATE=$(aws ec2 describe-instances --instance-ids $AMBARI_ID --query Reservations[].Instances[].State.Name --out text)
@@ -129,9 +129,8 @@ AMBARI_IP=$(aws ec2 describe-instances --instance-ids $AMBARI_ID --query Reserva
 
 SSH_COMMON_OPTIONS="-t -o ConnectTimeout=5 -o LogLevel=quiet -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $KEY"
 SSH_COMMAND="ssh $SSH_COMMON_OPTIONS ec2-user@$AMBARI_IP"
-SSH_COMMAND_TTY="ssh -t $SSH_COMMON_OPTIONS ec2-user@$AMBARI_IP"
-SSH_COMMAND_BACKGR="ssh -f -t $SSH_COMMON_OPTIONS ec2-user@$AMBARI_IP"
-
+SSH_COMMAND_TTY="ssh $SSH_COMMON_OPTIONS ec2-user@$AMBARI_IP"
+SSH_COMMAND_BACKGR="ssh $SSH_COMMON_OPTIONS ec2-user@$AMBARI_IP"
 
 echo ssh command to connect:
 echo $SSH_COMMAND
@@ -171,8 +170,8 @@ aws ec2 create-tags --resources $SNAPSHOT  --tags Key=$TAG_KEY,Value=$OWNER --ou
 echo [install] ambari
 $SSH_COMMAND <<"EOF3"
 sudo su
-# curl -so /etc/yum.repos.d/ambari.repo http://public-repo-1.hortonworks.com/ambari/centos6/1.x/updates/1.4.3.38/ambari.repo 
-curl -so /etc/yum.repos.d/ambari.repo http://public-repo-1.hortonworks.com/ambari/centos6/1.x/GA/ambari.repo
+# curl -so /etc/yum.repos.d/ambari.repo http://public-repo-1.hortonworks.com/ambari/centos6/1.x/updates/1.4.3.38/ambari.repo
+curl -so /etc/yum.repos.d/ambari.repo http://public-repo-1.hortonworks.com/ambari/centos6/1.x/updates/1.6.0/ambari.repo
 # curl -so /etc/yum.repos.d/ambari.repo   http://public-repo-1.hortonworks.com/HDP/centos6/2.x/updates/2.0.6.0/hdp.repo
 
 yum repolist
@@ -201,24 +200,23 @@ SLAVE_IPS=$(aws ec2 describe-instances --filters Name=reservation-id,Values=$SLA
 aws ec2 create-tags --resources $SLAVES  --tags Key=$TAG_KEY,Value=$OWNER --out text >> $LOGFILE
 aws ec2 create-tags --resources $SLAVES  --tags Key=Name,Value=slave --out text >> $LOGFILE
 
-NUM_OF_NOT_RUNNING=$(aws ec2 describe-instances --filters Name=reservation-id,Values=$SLAVE_RESERV  --query Reservations[].Instances[].State.Name --out text|xargs -n 1 echo|grep -v running|wc -l)    
-while [[ $NUM_OF_NOT_RUNNING -ne 0 ]]; do 
+NUM_OF_NOT_RUNNING=$(aws ec2 describe-instances --filters Name=reservation-id,Values=$SLAVE_RESERV  --query Reservations[].Instances[].State.Name --out text|xargs -n 1 echo|grep -v running|wc -l)
+while [[ $NUM_OF_NOT_RUNNING -ne 0 ]]; do
   echo "wait until all SLAVES are running ..."
   sleep 10
   NUM_OF_NOT_RUNNING=$(aws ec2 describe-instances --filters  Name=reservation-id,Values=$SLAVE_RESERV  --query Reservations[].Instances[].State.Name --out text|xargs -n 1 echo|grep -v running|wc -l)
 done
 
 
-# copies the private key for every slave for passwordless ssh
 chmod 600 $KEY
-for slave in $SLAVE_IPS; do 
+for slave in $SLAVE_IPS; do
   echo checking ssh connectivity on: $SLAVE_IPS
   SLAVE_SSH="ssh -t -o ConnectTimeout=5 -o LogLevel=quiet -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $KEY ec2-user@$slave"
   while ! $SLAVE_SSH true; do
     echo sleeping 5 sec for ssh ...
     sleep 5
   done
-  
+
   scp -i $KEY -o LogLevel=quiet -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $KEY ec2-user@${slave}:~/.ssh/id_rsa
 done
 
@@ -233,9 +231,9 @@ echo ======================================================
 
 : <<"TESTHADOOP"
 #!/bin/bash
- 
+
 set -x
- 
+
 su hdfs - -c "hadoop fs -rmdir /shakespeare"
 cd /tmp
 wget http://homepages.ihug.co.nz/~leonov/shakespeare.tar.bz2
@@ -249,7 +247,7 @@ su hdfs - -c "hadoop fs -cat /shakespeare/$now/output/part-r-* | sort -nk2"
 TESTHADOOP
 
 
-: <<COMMENTBLOCK
+: <<"COMMENTBLOCK"
 
 fing() { KEY=$1; openssl pkcs8 -in $KEY -nocrypt -topk8 -outform DER | openssl sha1 -c|sed "s/^.*= //"; }
 search-key() { KEY=$1; aws ec2 describe-key-pairs --filters Name=fingerprint,Values=$(fing $KEY) --query KeyPairs[].KeyName --out text; }
